@@ -15,8 +15,8 @@ import java.time.LocalDateTime;
 @Table(name = "pedido")
 public class Pedido {
 
-    @EqualsAndHashCode.Include
-    @Id
+    @Id @EqualsAndHashCode.Include
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Integer id;
 
     @Column(name = "data_pedido")
