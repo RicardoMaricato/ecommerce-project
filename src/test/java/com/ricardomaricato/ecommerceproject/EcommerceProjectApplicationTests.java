@@ -1,13 +1,38 @@
 package com.ricardomaricato.ecommerceproject;
 
-import org.junit.jupiter.api.Test;
-import org.springframework.boot.test.context.SpringBootTest;
+import org.junit.After;
+import org.junit.AfterClass;
+import org.junit.Before;
+import org.junit.BeforeClass;
 
-@SpringBootTest
-class EcommerceProjectApplicationTests {
+import javax.persistence.EntityManager;
+import javax.persistence.EntityManagerFactory;
+import javax.persistence.Persistence;
 
-	@Test
-	void contextLoads() {
+public class EcommerceProjectApplicationTests {
+
+	protected static EntityManagerFactory entityManagerFactory;
+
+	protected EntityManager entityManager;
+
+	@BeforeClass
+	public static void setUpBeforeClass() {
+		entityManagerFactory = Persistence
+				.createEntityManagerFactory("Ecommerce-PU");
 	}
 
+	@AfterClass
+	public static void tearDownAfterClass() {
+		entityManagerFactory.close();
+	}
+
+	@Before
+	public void setUp() {
+		entityManager = entityManagerFactory.createEntityManager();
+	}
+
+	@After
+	public void tearDown() {
+		entityManager.close();
+	}
 }
