@@ -1,5 +1,7 @@
 package com.ricardomaricato.ecommerceproject.model;
 
+import com.ricardomaricato.ecommerceproject.listener.GenericoListener;
+import com.ricardomaricato.ecommerceproject.listener.GerarNotaFiscalListener;
 import lombok.EqualsAndHashCode;
 import lombok.Getter;
 import lombok.Setter;
@@ -12,6 +14,7 @@ import java.util.List;
 @Getter
 @Setter
 @EqualsAndHashCode(onlyExplicitlyIncluded = true)
+@EntityListeners({ GerarNotaFiscalListener.class, GenericoListener.class })
 @Entity
 @Table(name = "pedido")
 public class Pedido {
@@ -53,7 +56,11 @@ public class Pedido {
     @Embedded
     private EnderecoEntregaPedido enderecoEntrega;
 
-    //    @PrePersist
+    public boolean isPago() {
+        return StatusPedido.PAGO.equals(status);
+    }
+
+//    @PrePersist
 //    @PreUpdate
     public void calcularTotal() {
         if (itens != null) {
